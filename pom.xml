@@ -19,28 +19,21 @@
         <scala.version>2.10.4</scala.version>
     </properties>
 
-    <dependencies>
+    <distributionManagement>
 
-        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
-            <version>${scala.version}</version>
-        </dependency>
+        <repository>
+            <id>sonatype-nexus</id>
+            <name>sonatype-nexus</name>
+            <url>https://nexus-hebros.rhcloud.com/content/repositories/releases/</url>
+        </repository>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
+        <snapshotRepository>
+            <id>sonatype-nexus</id>
+            <name>sonatype-nexus</name>
+            <url>https://nexus-hebros.rhcloud.com/content/repositories/snapshots/</url>
+        </snapshotRepository>
 
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.9.5</version>
-            <scope>test</scope>
-        </dependency>
-
-    </dependencies>
+    </distributionManagement>
 
     <build>
 
@@ -49,6 +42,7 @@
 
         <plugins>
 
+            <!-- scala compiler -->
             <plugin>
                 <groupId>org.scala-tools</groupId>
                 <artifactId>maven-scala-plugin</artifactId>
@@ -77,8 +71,22 @@
                 </configuration>
             </plugin>
 
+            <!-- include javadoc -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- include sources -->
+            <plugin>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>2.4</version>
                 <executions>
@@ -94,5 +102,31 @@
         </plugins>
 
     </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+
+        <!-- -->
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
 
 </project>

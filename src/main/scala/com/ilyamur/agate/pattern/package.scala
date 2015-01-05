@@ -6,6 +6,12 @@ package object pattern {
         def close()
     }
 
+    /**
+     * loan pattern
+     * @param c closeable
+     * @param f closure
+     * @return
+     */
     def using[C <: HasClose, B](c: C)(f: C => B): B = {
         try {
             f(c)
